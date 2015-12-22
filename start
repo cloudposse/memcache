@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Memcached args: $@"
+(memcached $@)&
+memcache_pid=$!
+trap "kill -SIGINT $memcache_pid && exit $?" SIGINT SIGTERM
+wait
+
